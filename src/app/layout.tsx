@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { QueryClientProvider } from "@/utils";
+import { NestedLayout } from "@/components/layouts";
 
 const euclid = localFont({
   src: [
@@ -41,7 +42,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${euclid.className}  antialiased`}>
-        <QueryClientProvider>{children}</QueryClientProvider>
+        <QueryClientProvider>
+          <NestedLayout>{children}</NestedLayout>
+        </QueryClientProvider>
       </body>
     </html>
   );
