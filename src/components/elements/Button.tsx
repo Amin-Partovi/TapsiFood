@@ -16,12 +16,11 @@ const Button: React.FC<ButtonProps> = ({
   ...props
 }) => {
   const baseStyles =
-    "inline-flex items-center justify-center font-medium rounded transition duration-200 focus:outline-none ";
+    "inline-flex items-center justify-center font-medium rounded-lg transition duration-200 focus:outline-none disabled:opacity-40";
 
   const variants = {
     primary: "bg-main-600 text-white hover:bg-main-700  ",
-    outline:
-      "border border-gray-300 text-gray-800 hover:bg-gray-100 ",
+    outline: "border border-gray-300 text-gray-800 hover:bg-gray-100 ",
   };
 
   const sizes = {
