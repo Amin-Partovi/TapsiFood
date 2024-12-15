@@ -17,7 +17,7 @@ const MultiSelectList = () => {
     setProduct(value);
   }
 
-  function handleAddList() {
+  function handleAddToList() {
     queryClient.setQueryData(["products"], (oldData: ProductType[]) => {
       if (oldData)
         return [{ title: product, id: Math.random().toString() }, ...oldData];
@@ -33,22 +33,29 @@ const MultiSelectList = () => {
   }
 
   return (
-    <div className="flex flex-col justify-between h-full flex-1">
-      <TrashBinTrash
-        className="text-red-500 self-end"
-        onClick={handleDelete}
-        role="button"
-      />
+    <div className="flex flex-col justify-between h-full flex-1 w-full">
+      <div className="flex flex-col gap-6">
+        <TrashBinTrash
+          className="text-red-500 self-end"
+          onClick={handleDelete}
+          role="button"
+        />
 
-      <div className="flex flex-col gap-2 overflow-auto h-96 bg-general-600 p-2 rounded-2xl">
-        {products?.map((product) => (
-          <ProductCard
-            key={product.id}
-            product={product}
-            selectedItems={selectedItems}
-            setSelectedItems={setSelectedItems}
-          />
-        ))}
+        <div className="flex flex-col gap-2 overflow-auto h-96 bg-general-600 p-2 rounded-2xl">
+          {!products?.length && (
+            <p className="text-center text-white text-2xl">
+              {messages.NO_PRODUCTS_AVAILABLE}
+            </p>
+          )}
+          {products &&
+            products.map((product) => (
+              <ProductCard
+                key={product.id}
+                product={product}
+                setSelectedItems={setSelectedItems}
+              />
+            ))}
+        </div>
       </div>
 
       <div className="flex flex-col gap-4">
@@ -58,7 +65,7 @@ const MultiSelectList = () => {
           value={product}
         />
 
-        <Button onClick={handleAddList} disabled={!product.length}>
+        <Button onClick={handleAddToList} disabled={!product.length}>
           {messages.ADD_TO_LIST}
         </Button>
       </div>

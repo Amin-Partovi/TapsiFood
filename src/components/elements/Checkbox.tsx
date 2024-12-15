@@ -15,6 +15,7 @@ const Checkbox = ({ label, checked, onChange, ...props }: CheckboxProps) => {
         checked={checked}
         onChange={(e) => onChange(e.target.checked)}
         {...props}
+        aria-checked={checked}
       />
       <span className="text-white">{label}</span>
     </label>
