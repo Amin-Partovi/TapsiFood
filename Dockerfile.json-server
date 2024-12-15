@@ -1,17 +1,12 @@
-# Use a lightweight Node.js image
+
 FROM node:22-alpine
 
-# Set the working directory
 WORKDIR /json-server
 
-# Copy only the db.json file
 COPY db.json ./db.json
 
-# Install JSON server
 RUN yarn global add json-server
 
-# Expose the JSON server port
 EXPOSE 3001
 
-# Start JSON server
 CMD ["npx", "json-server", "db.json", "--host", "0.0.0.0", "--port", "3001"]

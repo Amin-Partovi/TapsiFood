@@ -1,36 +1,121 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# How To Start
 
-## Getting Started
+## Docker
 
-First, run the development server:
+run the project in a Docker container, execute the following command to create an image and run a container:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+docker compose up
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Now the project is available at http://localhost:3000. If you need to stop the container, first, get a list of running containers using:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+docker container ls
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Then stop the container using:
 
-## Learn More
+```bash
+docker stop <container-name>
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Package Manager
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+run the project with Package Manager, in the project directory, you can use yarn as the package manager. First, run:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+yarn install
+```
 
-## Deploy on Vercel
+Since the data for this project is placed in a local database, you need to start the json server with the following command:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+npx json-server db.json --port 3001
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+To start the local development server, use the following command:
+
+```bash
+yarn dev
+```
+
+The project will be accessible at http://localhost:3000. To build the project for production use the following command:
+
+```bash
+yarn build
+```
+
+To serve the production build, you can use the following command:
+
+```bash
+yarn start
+```
+
+Again, the project will be accessible at http://localhost:3000.
+
+# About the project
+
+This project is a simple shopping list application built with Next.js (version 15), TypeScript, Tanstack Query, and Tailwind CSS, designed to provide a seamless user experience on mobile devices. Users can add items to the list using an input field and button, toggle items as checked or unchecked, and remove checked items using a trash button. The application displays product images, with fallback.png used for unavailable or missing images, ensuring a polished and user-friendly interface.
+
+# Folder Structure
+
+```bash
+.
+└── src/
+    ├── app
+    ├── assets
+    ├── components/
+    │   ├── elements/
+    │   │   ├── Button.tsx
+    │   │   ├── Input.tsx
+    │   │   ├── ...
+    │   │   └── index.ts
+    │   ├── fragments/
+    │   │   ├── MultiSelectList.tsx
+    │   │   ├── ProductCard.tsx
+    │   │   ├── ...
+    │   │   └── index.ts
+    │   ├── icons/
+    │   │   ├── TrashBinTrash.tsx
+    │   │   └── index.ts
+    │   └── layouts/
+    │       ├── NestedLayout.tsx
+    │       └── index.ts
+    ├── designTokens/
+    │   ├── colors.ts
+    │   ├── ...
+    │   └── index.ts
+    ├── messages
+    ├── services/
+    │   ├── products/
+    │   │   ├── getProducts.ts
+    │   │   ├── productsQuery.ts
+    │   │   └── ...
+    │   └── index.ts
+    └── utils/
+        ├── apiRequest.ts
+        ├── ...
+        └── index.ts
+```
+
+src folder divided to the following modules:
+
+elements: This folder contains shared components, also known as common components, that cannot be further divided into smaller independent components.
+
+fragments: Fragments are reusable components that are built using elements. They combine multiple elements to form more complex and self-contained components.
+
+layouts: components related to the layout of our application. These components define the high-level structure and positioning of other components
+
+app: files in the app directory are the app routes organized based on the Next.js app router.
+
+In addition to these modules, there are other ones such as utils, queries, ...
+
+Within this structure, each module except app directory has its own index file that serves as a central point of export for all the components within that module.
+
+# Ways To Improve
+
+- Testing: Add unit, integration, and behavioral tests to ensure reliability.
+- Rendering Performance: Use a virtualized list (e.g., react-window) for efficient rendering of large datasets.
+- Paginated API: Replace fetching all products at once with a paginated API for better performance.
+- Scalable Architecture: Adopt modular, feature-based architecture for future growth, though not essential for small projects.
