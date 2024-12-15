@@ -1,0 +1,20 @@
+version: "3.8"
+
+services:
+  nextjs:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - json-server
+
+  json-server:
+    build:
+      context: .
+      dockerfile: Dockerfile.json-server
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./db.json:/json-server/db.json

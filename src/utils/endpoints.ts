@@ -1,3 +1,4 @@
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 export const endpoints = {
-  PRODUCTS: "http://localhost:3000/products",
+  PRODUCTS: `${baseUrl}/products`,
 };
